@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="{{ lang | default(settings.defaultLanguage) }}">
+	<baseline-head></baseline-head>
+	<body class="{{ bodyClass | default('site-page') }}">
+		<a class="skip-link" href="#content">Skip to content</a>
+		<header class="site-header" data-site-header>
+			<a class="brand" href="/" aria-label="Wild Globalization home">
+				<span class="brand__primary">Wild</span>
+				<span class="brand__secondary">Globalization</span>
+			</a>
+			<nav class="site-nav" aria-label="Primary navigation" data-site-nav>
+				{% for item in home.nav %}
+					{% if item.children %}
+						<div class="nav-item nav-item--has-children">
+							<a class="nav-link" href="{{ item.href }}">{{ item.label }}</a>
+							<div class="nav-dropdown" aria-label="{{ item.label }} pages">
+								{% for child in item.children %}
+									<a href="{{ child.href }}">{{ child.label }}</a>
+								{% endfor %}
+							</div>
+						</div>
+					{% else %}
+						<a class="nav-link" href="{{ item.href }}">{{ item.label }}</a>
+					{% endif %}
+				{% endfor %}
+			</nav>
+			<a class="button button--small site-header__cta" href="https://wildglobalization.com/" rel="noopener noreferrer">Buy Now</a>
+			<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span class="visually-hidden">Toggle menu</span>
+			</button>
+		</header>
+		<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" data-mobile-nav>
+			{% for item in home.nav %}
+				{% if item.children %}
+					<div class="mobile-nav__group">
+						<a href="{{ item.href }}">{{ item.label }}</a>
+						<div class="mobile-nav__children">
+							{% for child in item.children %}
+								<a href="{{ child.href }}">{{ child.label }}</a>
+							{% endfor %}
+						</div>
+					</div>
+				{% else %}
+					<a href="{{ item.href }}">{{ item.label }}</a>
+				{% endif %}
+			{% endfor %}
+		</nav>
+		<main id="content">
+			{% block content %}{{ content | safe }}{% endblock %}
+		</main>
+		<footer class="site-footer">
+			<div class="section-inner footer-grid">
+				<div>
+					<p class="footer-brand"><span>Wild</span> Globalization</p>
+					<p>A pan-historical exploration of the five wild forces driving our hyper-globalizing civilization.</p>
+					<a class="button" href="https://wildglobalization.com/" rel="noopener noreferrer">Buy the Book</a>
+				</div>
+				<div>
+					<h2>Navigate</h2>
+					<ul>
+						{% for item in home.nav %}
+							<li>
+								<a href="{{ item.href }}">{{ item.label }}</a>
+								{% if item.children %}
+									<ul class="footer-subnav">
+										{% for child in item.children %}
+											<li><a href="{{ child.href }}">{{ child.label }}</a></li>
+										{% endfor %}
+									</ul>
+								{% endif %}
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div>
+					<h2>Five Forces</h2>
+					<ul>
+						<li>Wild Ecology</li>
+						<li>Wild Culture</li>
+						<li>Wild Technology</li>
+						<li>Wild Economy</li>
+						<li>Wild Governance</li>
+					</ul>
+				</div>
+			</div>
+			<p class="footer-bottom">&copy; {{ currentYear }} The Wild Globalization Project. All rights reserved.</p>
+		</footer>
+	</body>
+</html>

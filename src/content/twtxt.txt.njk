@@ -1,0 +1,15 @@
+---
+layout: false
+permalink: /twtxt.txt
+eleventyExcludeFromCollections: true
+feed: false
+---
+# nick = wildglobalization
+# url = {{ "/twtxt.txt" | fullUrl }}
+# description = {{ settings.description }}
+# link = Website {{ settings.url }}
+# lang = en
+#
+{% for post in collections.archive | limit(20) -%}
+{{ post.date | dateToRfc3339 }}	{{ post.data.title | plainText | safe }} {{ post.url | fullUrl }}
+{% endfor %}

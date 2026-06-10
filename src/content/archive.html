@@ -1,0 +1,17 @@
+---
+layout: layouts/archive.njk
+title: Archive
+description: Original Wild Globalization content archive.
+permalink: /archive/
+feed: false
+---
+<p>Original Wild Globalization essays and supporting pages, migrated as content into the v3 Eleventy site.</p>
+
+<ul class="archive-list">
+{% for item in collections.archive | reverse %}
+	<li>
+		<a href="{{ item.url }}">{{ item.data.title }}</a>
+		<span>{{ item.date | dateToRfc3339 }}</span>
+	</li>
+{% endfor %}
+</ul>
