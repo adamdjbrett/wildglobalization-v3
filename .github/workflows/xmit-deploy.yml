@@ -17,6 +17,9 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -25,12 +28,15 @@ jobs:
       XMIT_SITE: wildglobalization
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Checkout Baseline dependency
+        run: git clone --depth=1 https://github.com/apleasantview/eleventy-plugin-baseline.git ../eleventy-plugin-baseline
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
