@@ -1,0 +1,24 @@
+---
+permalink: /feed/feed.xml
+---
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="/feed/pretty-atom-feed.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title>{{ settings.title }}</title>
+	<id>{{ '/' | fullUrl }}</id>
+	<link href="{{ '/feed/feed.xml' | fullUrl }}" rel="self" />
+	<link href="{{ '/' | fullUrl }}" />
+	{% if collections.archive[0] %}
+	<updated>{{ collections.archive[0].date | dateToRfc3339 }}</updated>
+	{% endif %}
+
+	{% for post in collections.archive | limit(20) %}
+	<entry>
+		<title>{{ post.data.title }}</title>
+		<id>{{ post.url | fullUrl }}</id>
+		<link href="{{ post.url | fullUrl }}" />
+		<updated>{{ post.date | dateToRfc3339 }}</updated>
+		<summary>{{ post.templateContent | excerpt }}</summary>
+	</entry>
+	{% endfor %}
+</feed>

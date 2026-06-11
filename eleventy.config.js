@@ -1,4 +1,3 @@
-import { feedPlugin } from '@11ty/eleventy-plugin-rss';
 import yaml from 'js-yaml';
 import settings from './src/_data/settings.js';
 import markdownIt from 'markdown-it';
@@ -42,20 +41,6 @@ function createMemoizedRenderer(renderFn) {
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {
-
-	eleventyConfig.addPlugin(feedPlugin, {
-		outputPath: '/feed/feed.xml',
-		stylesheet: 'pretty-atom-feed.xsl',
-		collection: { name: 'archive', limit: 20 },
-		metadata: {
-			language: 'en',
-			title: settings.title,
-			subtitle: settings.tagline,
-			base: siteUrl,
-			author: { name: settings.author.name }
-		}
-	});
-
 	const markdownLib = markdownIt({
 		html: true,
 		breaks: true,
@@ -115,7 +100,7 @@ export default async function (eleventyConfig) {
 			});
 	});
 
-	 eleventyConfig.on('eleventy.after', () => {
+	eleventyConfig.on('eleventy.after', () => {
 		execSync(`npx pagefind --site _site --glob "**/*.html"`, { encoding: 'utf-8' });
 	});
 

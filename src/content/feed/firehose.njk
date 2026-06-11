@@ -1,0 +1,31 @@
+---
+permalink: /feed/firehose.xml
+eleventyExcludeFromCollections: true
+layout: false
+---
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="/feed/pretty-atom-feed.xsl"?>
+{% set items = collections.archive %}
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title>{{ settings.title }} Firehose</title>
+	<subtitle>{{ settings.description }}</subtitle>
+	<link href="{{ '/feed/firehose.xml' | fullUrl }}" rel="self" />
+	<link href="{{ '/' | fullUrl }}" />
+	<updated>{{ (items[0] and items[0].date) | dateToRfc3339 }}</updated>
+	<id>{{ '/' | fullUrl }}</id>
+	<author>
+		<name>{{ settings.author.name }}</name>
+	</author>
+
+	{%- for post in items %}
+		{%- if loop.index0 < 100 and post.url and post.data and post.data.title %}
+		<entry>
+			<title>{{ post.data.title }}</title>
+			<link href="{{ post.url | fullUrl }}" />
+			<updated>{{ post.date | dateToRfc3339 }}</updated>
+			<id>{{ post.url | fullUrl }}</id>
+			<content type="html"><![CDATA[{{ (post.templateContent or post.content or post.data.description or '') | trim | replace(']]>', ']]]]><![CDATA[>') | safe }}]]></content>
+		</entry>
+		{%- endif %}
+	{%- endfor %}
+</feed>
