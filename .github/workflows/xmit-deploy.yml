@@ -47,17 +47,17 @@ jobs:
 
       - name: Verify build output
         run: |
-          if [ ! -d dist ]; then
-            echo "dist directory missing after build" >&2
+          if [ ! -d _site ]; then
+            echo "_site directory missing after build" >&2
             exit 1
           fi
-          ls -1 dist | head -n 20
+          ls -1 _site | head -n 20
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: eleventy-dist
-          path: dist
+          name: eleventy-site
+          path: _site
 
   deploy:
     name: Deploy to XMIT
@@ -71,8 +71,8 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: eleventy-dist
-          path: dist
+          name: eleventy-site
+          path: _site
 
       - name: Deploy to XMIT (CLI)
         env:
@@ -86,8 +86,8 @@ jobs:
             echo "XMIT site/domain not provided. Set repo variable XMIT_SITE or pass the workflow_dispatch site input." >&2
             exit 1
           fi
-          echo "Deploying dist to $XMIT_SITE via XMIT CLI"
-          npx -y @xmit.co/xmit "$XMIT_SITE" dist
+          echo "Deploying _site to $XMIT_SITE via XMIT CLI"
+          npx -y @xmit.co/xmit "$XMIT_SITE" _site
 
       - name: Post-deploy summary
         run: |
