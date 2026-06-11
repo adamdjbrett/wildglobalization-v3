@@ -74,7 +74,7 @@ about:
       body: "Building perspective from both the triumphs and tragedies of the human story."
     - icon: "🌍"
       title: "Pan-Historical Lens"
-      body: "Drawing from paleoecology to governance across 250,000 years of civilization."
+      body: "Drawing from paleoecology to governance across 300,000 years of civilization."
   pullquote: |
     Can we turn our incessantly creative-destructive and emerging hyper-tech nature back on itself to gain new comparative advantages? How can we, in the 21st century, regain practical advantage for our own - and the Earth's - precarious endurance?
 
@@ -95,7 +95,7 @@ author:
   stats:
     - value: "5"
       label: "Wild Forces"
-    - value: "250K"
+    - value: "300K"
       label: "Years of History"
     - value: "1"
       label: "Bold Thesis"
